@@ -14,11 +14,21 @@ import (
 
 func main() {
 	fmt.Println("dfd")
-	network()
+	strPoint()
 }
 
 func network() {
 	conn, err := net.Dial("tcp", "www.baidu.com:80")
 	fmt.Println(conn)
 	fmt.Println(err)
+}
+
+func strPoint() {
+	var house = "fdsfsdf"
+	ptr := &house
+	fmt.Printf("ptr  type: %T\n", ptr)
+	fmt.Printf("address: %p\n", ptr)
+	value := *ptr
+	fmt.Printf("value type: %T\n", value)
+	fmt.Printf("value: %s\n", value)
 }
