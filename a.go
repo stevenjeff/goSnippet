@@ -11,5 +11,4 @@ import "fmt"
 
 func main() {
 	fmt.Println("dfd")
-	fmt.
 }

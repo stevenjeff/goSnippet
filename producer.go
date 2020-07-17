@@ -19,3 +19,10 @@ func customer(channel <-chan string) {
 		fmt.Println(message)
 	}
 }
+
+func main(){
+	channel := make(chan string)
+	go producer("cat",channel)
+	go producer("dog",channel)
+	customer(channel)
+}
