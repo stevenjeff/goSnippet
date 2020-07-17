@@ -7,8 +7,18 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net"
+)
 
 func main() {
 	fmt.Println("dfd")
+	network()
+}
+
+func network() {
+	conn, err := net.Dial("tcp", "www.baidu.com:80")
+	fmt.Println(conn)
+	fmt.Println(err)
 }
