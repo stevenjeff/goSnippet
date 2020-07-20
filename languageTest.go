@@ -8,13 +8,18 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
 	"flag"
 	"fmt"
 	"net"
+	"os"
+	"strings"
+	"unicode/utf8"
 )
 
 func main() {
-	flagTest()
+	enumTest()
 }
 
 func network() {
@@ -37,4 +42,76 @@ func flagTest() {
 	var model = flag.String("model", "", "process model")
 	flag.Parse()
 	fmt.Printf(*model)
+}
+
+func newPoint() {
+	str := new(string)
+	*str = "ninja的打法"
+	fmt.Println(str)
+	fmt.Println(len(*str))
+	fmt.Println(utf8.RuneCountInString(*str))
+	fmt.Println(*str)
+}
+
+func changeStr() {
+	angel := "fdfsdfsdfffgfdgdfgdfgdfgdfgfdfg"
+	angleBytes := []byte(angel)
+	for i := 5; i <= 13; i++ {
+		angleBytes[i] = ' '
+	}
+	fmt.Println(string(angleBytes))
+}
+
+func stringBuilder() {
+	var stringBuilder bytes.Buffer
+	stringBuilder.WriteString("3333")
+	stringBuilder.WriteString("2fsdfsd")
+	fmt.Println(stringBuilder.String())
+}
+
+func fileTest() {
+	file, err := os.Open("C:\\Windows\\INF\\.NET CLR Data\\_DataPerfCounters.ini")
+	if err != nil {
+		return
+	}
+	reader := bufio.NewReader(file)
+	for {
+		linestr, err := reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		linestr = strings.TrimSpace(linestr)
+		if linestr == "" {
+			continue
+		}
+		if linestr[0] == ';' {
+			continue
+		}
+		if linestr[1] == '[' && linestr[len(linestr)-4] == ']' {
+			sectionName := linestr[1 : len(linestr)-1]
+			fmt.Println(sectionName)
+		}
+	}
+	defer file.Close()
+}
+
+func enumTest() {
+	type Weapon int
+	const (
+		Arrow Weapon = iota
+		Shuriken
+		SniperRifle
+		Rifle
+		Blower
+	)
+	fmt.Println(Arrow, Shuriken, SniperRifle, Rifle, Blower)
+	var weapon Weapon = Blower
+	fmt.Println(weapon)
+	const (
+		FlagNone = 1 << iota
+		FlagRed
+		FlagGreen
+		FlagBlue
+	)
+	fmt.Println(FlagRed, FlagGreen, FlagBlue)
 }
