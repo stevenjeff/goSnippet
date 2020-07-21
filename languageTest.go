@@ -14,12 +14,15 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"reflect"
 	"strings"
 	"unicode/utf8"
 )
 
 func main() {
-	enumTest()
+	//testEnum2()
+	//aliasTest()
+	structTest()
 }
 
 func network() {
@@ -114,4 +117,61 @@ func enumTest() {
 		FlagBlue
 	)
 	fmt.Println(FlagRed, FlagGreen, FlagBlue)
+}
+
+type chipType int
+
+const (
+	None chipType = iota
+	CPU
+	GPU
+)
+
+func (c chipType) String() string {
+	switch c {
+	case None:
+		return "NONE"
+	case CPU:
+		return "CPU"
+	case GPU:
+		return "GPU"
+	}
+	return "N/A"
+}
+
+func testEnum2() {
+	fmt.Println("%s %d", GPU, GPU)
+	fmt.Println("%s %d", GPU, GPU)
+}
+
+func aliasTest() {
+	type NewInt int
+	type IntAlias = int
+	var a1 NewInt
+	var a2 IntAlias
+	fmt.Printf("%T : %T\n", a1, a2)
+}
+
+type Brand struct {
+}
+
+func (t Brand) Show() {
+	fmt.Print("brand show :")
+	fmt.Println(t)
+}
+
+type FakeBrand = Brand
+type Vehicle struct {
+	FakeBrand
+	Brand
+}
+
+func structTest() {
+	var a Vehicle
+	a.FakeBrand.Show()
+	ta := reflect.TypeOf(a)
+	for i := 0; i < ta.NumField(); i++ {
+		f := ta.Field(i)
+		fmt.Printf("FieldName: %v ,FieldType : %v\n", f.Name, f.Type.Name())
+	}
 }
