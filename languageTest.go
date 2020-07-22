@@ -15,6 +15,7 @@ import (
 	"net"
 	"os"
 	"reflect"
+	"sort"
 	"strings"
 	"unicode/utf8"
 )
@@ -22,7 +23,10 @@ import (
 func main() {
 	//testEnum2()
 	//aliasTest()
-	structTest()
+	//structTest()
+	//arrayTest()
+	//sliceTest()
+	mapTest()
 }
 
 func network() {
@@ -174,4 +178,55 @@ func structTest() {
 		f := ta.Field(i)
 		fmt.Printf("FieldName: %v ,FieldType : %v\n", f.Name, f.Type.Name())
 	}
+}
+
+func arrayTest() {
+	var team [3]string
+	team[0] = "a"
+	team[1] = "b"
+	team[2] = "c"
+	fmt.Println(team)
+	var teamA = [3]string{"e", "f", "g"}
+	fmt.Println(teamA)
+	var teamB = [...]string{"m", "n", "o"}
+	fmt.Println(teamB)
+	for k, v := range team {
+		fmt.Println(k, v)
+	}
+}
+
+func sliceTest() {
+	var a = [3]int{1, 2, 3}
+	fmt.Println(a, a[1:3])
+	m := make([]int, 2)
+	n := make([]int, 2, 10)
+	fmt.Println(m, n)
+	fmt.Println(len(m), len(n))
+	m = append(m, 4)
+	fmt.Println(m)
+	k := make([]int, 3)
+	copy(k, m)
+	fmt.Println(k)
+}
+
+func mapTest() {
+	scene := make(map[string]int)
+	scene["route"] = 66
+	scene["china"] = 223
+	scene["brazil"] = 3323
+	fmt.Println(scene["route"])
+	m := map[string]string{
+		"aaa": "bbb",
+		"cc":  "ddd",
+	}
+	fmt.Println(m)
+	for k, v := range scene {
+		fmt.Println(k, v)
+	}
+	var sceneList []string
+	for k := range scene {
+		sceneList = append(sceneList, k)
+	}
+	sort.Strings(sceneList)
+	fmt.Println(sceneList)
 }
