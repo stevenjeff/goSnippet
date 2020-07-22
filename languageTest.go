@@ -10,6 +10,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"container/list"
 	"flag"
 	"fmt"
 	"net"
@@ -17,6 +18,7 @@ import (
 	"reflect"
 	"sort"
 	"strings"
+	"sync"
 	"unicode/utf8"
 )
 
@@ -26,7 +28,10 @@ func main() {
 	//structTest()
 	//arrayTest()
 	//sliceTest()
-	mapTest()
+	//mapTest()
+	//syncMap()
+	//listTest()
+	forTest()
 }
 
 func network() {
@@ -229,4 +234,64 @@ func mapTest() {
 	}
 	sort.Strings(sceneList)
 	fmt.Println(sceneList)
+	delete(scene, "route")
+	fmt.Println(scene)
+}
+
+func syncMap() {
+	var scene sync.Map
+	scene.Store("greece", 97)
+	scene.Store("london", 100)
+	scene.Store("egypt", 200)
+	fmt.Println(scene.Load("greece"))
+	scene.Delete("london")
+	scene.Range(func(k, v interface{}) bool {
+		fmt.Println("iterate:", k, v)
+		return true
+	})
+}
+
+func listTest() {
+	l := list.New()
+	l.PushBack("first")
+	l.PushFront(333)
+	fmt.Println(l)
+	for i := l.Front(); i != nil; i = i.Next() {
+		fmt.Println(i.Value)
+	}
+}
+
+func forTest() {
+	var ten int = 11
+	if ten > 10 {
+		fmt.Println(ten)
+	} else if ten < 10 {
+		fmt.Println(ten)
+	} else {
+		fmt.Println(ten)
+	}
+
+	if t := 4; t > 1 {
+		fmt.Println(t)
+	}
+	for key, value := range []int{1, 2, 3, 4, 5, 6} {
+		fmt.Println(key, value)
+	}
+	c := make(chan int)
+	go func() {
+		c <- 5
+		c <- 2
+		c <- 3
+		close(c)
+	}()
+	for v := range c {
+		fmt.Println(v)
+	}
+	m := map[string]int{
+		"hello": 100,
+		"world": 200,
+	}
+	for _, value := range m {
+		fmt.Println(value)
+	}
 }
