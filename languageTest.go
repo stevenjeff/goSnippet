@@ -316,6 +316,7 @@ func switchTest() {
 	switch {
 	case a == "hello":
 		fmt.Println("hello")
+		//强制跳入下一个 case
 		fallthrough
 	case a != "world":
 		fmt.Println("world")
