@@ -31,7 +31,8 @@ func main() {
 	//mapTest()
 	//syncMap()
 	//listTest()
-	forTest()
+	//forTest()
+	switchTest()
 }
 
 func network() {
@@ -293,5 +294,30 @@ func forTest() {
 	}
 	for _, value := range m {
 		fmt.Println(value)
+	}
+}
+
+func switchTest() {
+	var a = "hello"
+	switch a {
+	case "hello":
+		fmt.Println(1)
+	case "world", "tide":
+		fmt.Println(2)
+	default:
+		fmt.Println(0)
+	}
+
+	switch {
+	case a != "f" && a != "ttt":
+		fmt.Println(2)
+	}
+
+	switch {
+	case a == "hello":
+		fmt.Println("hello")
+		fallthrough
+	case a != "world":
+		fmt.Println("world")
 	}
 }
