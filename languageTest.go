@@ -17,6 +17,7 @@ import (
 	"os"
 	"reflect"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"unicode/utf8"
@@ -52,6 +53,10 @@ func strPoint() {
 	value := *ptr
 	fmt.Printf("value type: %T\n", value)
 	fmt.Printf("value: %s\n", value)
+}
+
+func aaa() {
+
 }
 
 func flagTest() {
@@ -400,4 +405,17 @@ func passTest() {
 
 	// 输出结构的指针地址
 	fmt.Printf("out ptr: %p\n", &out)
+}
+
+func convertTo(v interface{}) string {
+	var a string = ""
+	switch v.(type) {
+	case bool:
+		a = strconv.FormatBool(v.(bool))
+	case int:
+		a = strconv.FormatInt(v.(int64), 10)
+	case float64:
+		a = strconv.FormatFloat(v.(float64), 'f', 10, 64)
+	}
+	return a
 }
