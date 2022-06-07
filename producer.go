@@ -20,9 +20,9 @@ func customer(channel <-chan string) {
 	}
 }
 
-func main(){go
+func main() {
 	channel := make(chan string)
-	go producer("cat",channel)
-	go producer("dog",channel)
+	go producer("cat", channel)
+	go producer("dog", channel)
 	customer(channel)
 }
